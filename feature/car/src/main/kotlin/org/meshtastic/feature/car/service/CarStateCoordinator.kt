@@ -223,80 +223,78 @@ class CarStateCoordinator(
     }
 
     private fun collectNodeData() {
-        nodeJob =
-            scope.launch {
-                combine(
-                    nodeRepository.nodeDBbyNum,
-                    nodeRepository.onlineNodeCount,
-                    radioConfigRepository.localConfigFlow,
-                ) { nodeMap, onlineCount, localConfig ->
-                    val nodes = CarScreenDataBuilder.sortNodes(nodeMap.values, localConfig.lora?.modem_preset)
-                    val totalCount = nodeMap.size
-                    val meshName = nodeRepository.ourNodeInfo.value?.user?.long_name
+        nodeJob = scope.launch {
+            combine(
+                nodeRepository.nodeDBbyNum,
+                nodeRepository.onlineNodeCount,
+                radioConfigRepository.localConfigFlow,
+            ) { nodeMap, onlineCount, localConfig ->
+                val nodes = CarScreenDataBuilder.sortNodes(nodeMap.values, localConfig.lora?.modem_preset)
+                val totalCount = nodeMap.size
+                val meshName = nodeRepository.ourNodeInfo.value?.user?.long_name
 
-                    _nodeDashboardState.value =
-                        NodeDashboardUiState(
-                            nodes = nodes,
-                            topologyHeader =
-                            TopologyHeader(
-                                totalNodes = totalCount,
-                                onlineNodes = onlineCount,
-                                meshName = meshName,
-                            ),
-                        )
-                    _sessionState.value = _sessionState.value.copy(onlineNodeCount = onlineCount)
-                }
-                    .collect {}
+                _nodeDashboardState.value =
+                    NodeDashboardUiState(
+                        nodes = nodes,
+                        topologyHeader =
+                        TopologyHeader(
+                            totalNodes = totalCount,
+                            onlineNodes = onlineCount,
+                            meshName = meshName,
+                        ),
+                    )
+                _sessionState.value = _sessionState.value.copy(onlineNodeCount = onlineCount)
             }
+                .collect {}
+        }
     }
 
     private fun collectMessagingData() {
-        messagingJob =
-            scope.launch {
-                combine(packetRepository.getContacts(), radioConfigRepository.channelSetFlow) { contacts, channelSet ->
-                    val channels =
-                        channelSet.settings.mapIndexed { index, settings ->
-                            val channel = Channel(settings = settings)
-                            ChannelUi(
-                                index = index,
-                                name = channel.name,
-                                unreadCount = 0, // will be updated per-channel
-                            )
-                        }
-
-                    val conversations =
-                        CarScreenDataBuilder.sortConversations(
-                            contacts.entries.map { (contactKey, packet) ->
-                                val senderNode =
-                                    nodeRepository.nodeDBbyNum.value.values.find { it.user.id == packet.from }
-                                ConversationUi(
-                                    contactKey = contactKey,
-                                    displayName = senderNode?.user?.long_name ?: contactKey,
-                                    lastMessage = packet.bytes?.utf8() ?: "",
-                                    lastMessageTime = packet.time,
-                                    unreadCount = 0,
-                                    isEmergency = false,
-                                )
-                            },
+        messagingJob = scope.launch {
+            combine(packetRepository.getContacts(), radioConfigRepository.channelSetFlow) { contacts, channelSet ->
+                val channels =
+                    channelSet.settings.mapIndexed { index, settings ->
+                        val channel = Channel(settings = settings)
+                        ChannelUi(
+                            index = index,
+                            name = channel.name,
+                            unreadCount = 0, // will be updated per-channel
                         )
-                            .take(CarScreenDataBuilder.MAX_CONVERSATIONS)
-
-                    _messagingState.value =
-                        MessagingUiState(
-                            channels = channels,
-                            selectedChannelIndex = selectedChannel.value,
-                            conversations = conversations,
-                            emergencySpotlight = null,
-                        )
-
-                    // Update last message time in session state
-                    val lastTime = conversations.maxOfOrNull { it.lastMessageTime }
-                    if (lastTime != null) {
-                        _sessionState.value = _sessionState.value.copy(lastMessageTime = lastTime)
                     }
+
+                val conversations =
+                    CarScreenDataBuilder.sortConversations(
+                        contacts.entries.map { (contactKey, packet) ->
+                            val senderNode =
+                                nodeRepository.nodeDBbyNum.value.values.find { it.user.id == packet.from }
+                            ConversationUi(
+                                contactKey = contactKey,
+                                displayName = senderNode?.user?.long_name ?: contactKey,
+                                lastMessage = packet.bytes?.utf8() ?: "",
+                                lastMessageTime = packet.time,
+                                unreadCount = 0,
+                                isEmergency = false,
+                            )
+                        },
+                    )
+                        .take(CarScreenDataBuilder.MAX_CONVERSATIONS)
+
+                _messagingState.value =
+                    MessagingUiState(
+                        channels = channels,
+                        selectedChannelIndex = selectedChannel.value,
+                        conversations = conversations,
+                        emergencySpotlight = null,
+                    )
+
+                // Update last message time in session state
+                val lastTime = conversations.maxOfOrNull { it.lastMessageTime }
+                if (lastTime != null) {
+                    _sessionState.value = _sessionState.value.copy(lastMessageTime = lastTime)
                 }
-                    .collect {}
             }
+                .collect {}
+        }
     }
 
     private fun collectLocalStats() {

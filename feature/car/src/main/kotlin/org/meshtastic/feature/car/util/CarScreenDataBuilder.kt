@@ -67,7 +67,9 @@ internal object CarScreenDataBuilder {
 
     /** Builds ordered conversation list: sorted by most recent message time descending. */
     fun sortConversations(conversations: List<ConversationUi>): List<ConversationUi> =
-        conversations.sortedByDescending { it.lastMessageTime }
+        conversations.sortedByDescending {
+            it.lastMessageTime
+        }
 
     /**
      * Determines signal quality from SNR relative to the modem preset's demodulation floor ([ModemPreset.snrLimit]).

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Templated Android Auto declaration, included unless building with -PenableCarTemplates=false
+  (wired in androidApp/build.gradle.kts). Being an app-module resource, it overrides feature:car's
+  notification-only automotive_app_desc.xml in the merge, adding <uses name="template" /> so Android
+  Auto recognizes and launches the CarAppService/HomeScreen. (On Google Play this is Closed/Internal tracks
+  only; ForkedUpTastic ships outside Play, so it is on by default.)
+-->
+<automotiveApp>
+    <uses name="notification" />
+    <uses name="template" />
+</automotiveApp>

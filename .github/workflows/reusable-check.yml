@@ -190,7 +190,7 @@ jobs:
   #                  It lived in lint-check until a cold build there blew the 30m budget.
   #   shard-feature: feature:* KMP module tests + :core:service
   #   shard-app:     Pure-Android/JVM tests (androidApp, desktopApp,
-  #                  core:barcode, feature:widget)
+  #                  core:barcode, feature:car, feature:widget)
   #                  + :core:database + :core:network + :feature:node + :feature:wifi-provision
   test-shards:
     runs-on: ubuntu-26.04
@@ -274,6 +274,8 @@ jobs:
               :core:barcode:testGoogleDebugUnitTest
               :core:database:allTests
               :core:network:allTests
+              :feature:car:testFdroidDebugUnitTest
+              :feature:car:testGoogleDebugUnitTest
               :feature:widget:testDebugUnitTest
               :feature:xr:testDebugUnitTest
               :feature:node:allTests
@@ -287,6 +289,8 @@ jobs:
               :desktopApp:koverXmlReport
               :core:database:koverXmlReport
               :core:network:koverXmlReport
+              :feature:car:koverXmlReportFdroidDebug
+              :feature:car:koverXmlReportGoogleDebug
               :feature:widget:koverXmlReportDebug
               :feature:xr:koverXmlReportDebug
               :feature:node:koverXmlReport

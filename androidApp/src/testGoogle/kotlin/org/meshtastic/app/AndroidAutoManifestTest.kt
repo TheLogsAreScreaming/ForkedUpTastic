@@ -30,9 +30,10 @@ import kotlin.test.assertFalse
 import kotlin.test.assertTrue
 
 /**
- * Pins that the merged google-flavor manifest declares no Android Auto support. Play puts every track through the car
- * quality review on the `com.google.android.gms.car.application` entry alone, and it does not accept Meshtastic in an
- * Auto category, so any declaration gets the update rejected.
+ * Pins that the merged google-flavor manifest declares Android Auto support. ForkedUpTastic ships outside Google Play,
+ * so it restores the templated car app upstream had to remove for Play's car review: both the
+ * `com.google.android.gms.car.application` entry (MessagingStyle notifications on Auto) and the CarAppService (the
+ * templated car screens) must be present in a default build.
  */
 @RunWith(RobolectricTestRunner::class)
 @Config(application = Application::class, sdk = [34])
@@ -41,15 +42,18 @@ class AndroidAutoManifestTest {
     private val context: Context = ApplicationProvider.getApplicationContext()
 
     @Test
-    fun `the app declares no Android Auto support`() {
+    fun `the app declares Android Auto support`() {
         val info = context.packageManager.getApplicationInfo(context.packageName, PackageManager.GET_META_DATA)
-        assertFalse(info.metaData?.containsKey(CAR_APPLICATION) == true, "$CAR_APPLICATION puts the app in Auto review")
+        assertTrue(info.metaData?.containsKey(CAR_APPLICATION) == true, "$CAR_APPLICATION lets Auto show the app")
     }
 
     @Test
-    fun `no Android for Cars App Library service is declared`() {
+    fun `the templated car app service is declared`() {
         val carAppServices = context.packageManager.queryIntentServices(Intent(CAR_APP_SERVICE), 0)
-        assertTrue(carAppServices.isEmpty(), "a car app service puts the app in Auto review")
+        assertTrue(
+            carAppServices.any { it.serviceInfo.name == CAR_SERVICE_CLASS },
+            "the car app service gives Auto the templated screens",
+        )
     }
 
     @Test
@@ -65,5 +69,6 @@ class AndroidAutoManifestTest {
     private companion object {
         const val CAR_APPLICATION = "com.google.android.gms.car.application"
         const val CAR_APP_SERVICE = "androidx.car.app.CarAppService"
+        const val CAR_SERVICE_CLASS = "org.meshtastic.feature.car.service.MeshtasticCarAppService"
     }
 }

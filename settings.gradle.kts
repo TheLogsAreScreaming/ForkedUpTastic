@@ -120,6 +120,7 @@ include(
     ":feature:docs",
     ":feature:firmware",
     ":feature:wifi-provision",
+    ":feature:car",
     ":desktopApp",
     ":androidApp",
     ":core:barcode",

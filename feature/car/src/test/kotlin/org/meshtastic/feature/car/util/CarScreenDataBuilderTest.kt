@@ -160,7 +160,7 @@ class CarScreenDataBuilderTest {
                 snr = -4f,
                 rssi = -108,
                 lastHeard = onlineLastHeard(120),
-                deviceMetrics = DeviceMetrics(battery_level = 87),
+                deviceMetrics = deviceMetricsOf { battery_level = 87 },
                 position = validPosition(),
             )
 
@@ -198,7 +198,7 @@ class CarScreenDataBuilderTest {
 
     @Test
     fun `buildNodeUi keeps valid battery percentage`() {
-        val node = createNode(num = 104, deviceMetrics = DeviceMetrics(battery_level = 42))
+        val node = createNode(num = 104, deviceMetrics = deviceMetricsOf { battery_level = 42 })
 
         val ui = CarScreenDataBuilder.buildNodeUi(node)
 
@@ -207,7 +207,7 @@ class CarScreenDataBuilderTest {
 
     @Test
     fun `buildNodeUi drops zero battery percentage`() {
-        val node = createNode(num = 105, deviceMetrics = DeviceMetrics(battery_level = 0))
+        val node = createNode(num = 105, deviceMetrics = deviceMetricsOf { battery_level = 0 })
 
         val ui = CarScreenDataBuilder.buildNodeUi(node)
 
@@ -216,7 +216,7 @@ class CarScreenDataBuilderTest {
 
     @Test
     fun `buildNodeUi drops battery values above one hundred`() {
-        val node = createNode(num = 106, deviceMetrics = DeviceMetrics(battery_level = 101))
+        val node = createNode(num = 106, deviceMetrics = deviceMetricsOf { battery_level = 101 })
 
         val ui = CarScreenDataBuilder.buildNodeUi(node)
 
@@ -225,7 +225,7 @@ class CarScreenDataBuilderTest {
 
     @Test
     fun `buildNodeUi returns null battery when metrics do not include one`() {
-        val node = createNode(num = 107, deviceMetrics = DeviceMetrics())
+        val node = createNode(num = 107, deviceMetrics = deviceMetricsOf())
 
         val ui = CarScreenDataBuilder.buildNodeUi(node)
 
@@ -234,7 +234,7 @@ class CarScreenDataBuilderTest {
 
     @Test
     fun `buildNodeUi marks node without position as lacking location`() {
-        val node = createNode(num = 108, position = Position())
+        val node = createNode(num = 108, position = positionOf())
 
         val ui = CarScreenDataBuilder.buildNodeUi(node)
 
@@ -243,7 +243,7 @@ class CarScreenDataBuilderTest {
 
     @Test
     fun `buildNodeUi ignores invalid position coordinates`() {
-        val node = createNode(num = 109, position = Position(latitude_i = 910000000, longitude_i = -1224194000))
+        val node = createNode(num = 109, position = positionOf { latitude_i = 910000000; longitude_i = -1224194000 })
 
         val ui = CarScreenDataBuilder.buildNodeUi(node)
 
@@ -312,21 +312,21 @@ class CarScreenDataBuilderTest {
             createNode(
                 num = 301,
                 deviceMetrics =
-                DeviceMetrics(
-                    battery_level = 82,
-                    channel_utilization = 10.5f,
-                    air_util_tx = 2.5f,
-                    uptime_seconds = 120,
-                ),
+                deviceMetricsOf {
+                    battery_level = 82
+                    channel_utilization = 10.5f
+                    air_util_tx = 2.5f
+                    uptime_seconds = 120
+                },
             )
         val stats =
-            LocalStats(
-                uptime_seconds = 7_200,
-                channel_utilization = 65.5f,
-                air_util_tx = 12.25f,
-                num_packets_tx = 91,
-                num_packets_rx = 123,
-            )
+            localStatsOf {
+                uptime_seconds = 7_200
+                channel_utilization = 65.5f
+                air_util_tx = 12.25f
+                num_packets_tx = 91
+                num_packets_rx = 123
+            }
         val allNodes = listOf(ourNode, createNode(num = 302), createNode(num = 303, lastHeard = 0))
 
         val localStats = CarScreenDataBuilder.buildLocalStats(ourNode = ourNode, stats = stats, allNodes = allNodes)
@@ -348,21 +348,21 @@ class CarScreenDataBuilderTest {
             createNode(
                 num = 304,
                 deviceMetrics =
-                DeviceMetrics(
-                    battery_level = 54,
-                    channel_utilization = 22.5f,
-                    air_util_tx = 8.75f,
-                    uptime_seconds = 3_600,
-                ),
+                deviceMetricsOf {
+                    battery_level = 54
+                    channel_utilization = 22.5f
+                    air_util_tx = 8.75f
+                    uptime_seconds = 3_600
+                },
             )
         val stats =
-            LocalStats(
-                uptime_seconds = 0,
-                channel_utilization = 99.9f,
-                air_util_tx = 99.9f,
-                num_packets_tx = 11,
-                num_packets_rx = 17,
-            )
+            localStatsOf {
+                uptime_seconds = 0
+                channel_utilization = 99.9f
+                air_util_tx = 99.9f
+                num_packets_tx = 11
+                num_packets_rx = 17
+            }
         val allNodes = listOf(ourNode, createNode(num = 305, lastHeard = 0))
 
         val localStats = CarScreenDataBuilder.buildLocalStats(ourNode = ourNode, stats = stats, allNodes = allNodes)
@@ -381,13 +381,13 @@ class CarScreenDataBuilderTest {
     @Test
     fun `buildLocalStats handles null local node by using zeros and node counts`() {
         val stats =
-            LocalStats(
-                uptime_seconds = 0,
-                channel_utilization = 14.5f,
-                air_util_tx = 6.5f,
-                num_packets_tx = 33,
-                num_packets_rx = 44,
-            )
+            localStatsOf {
+                uptime_seconds = 0
+                channel_utilization = 14.5f
+                air_util_tx = 6.5f
+                num_packets_tx = 33
+                num_packets_rx = 44
+            }
         val allNodes = listOf(createNode(num = 306), createNode(num = 307, lastHeard = 0), createNode(num = 308))
 
         val localStats = CarScreenDataBuilder.buildLocalStats(ourNode = null, stats = stats, allNodes = allNodes)
@@ -406,8 +406,8 @@ class CarScreenDataBuilderTest {
     @Test
     fun `buildLocalStats reports no battery when local node metrics omit it`() {
         val ourNode =
-            createNode(num = 309, deviceMetrics = DeviceMetrics(channel_utilization = 5.5f, air_util_tx = 1.5f))
-        val stats = LocalStats()
+            createNode(num = 309, deviceMetrics = deviceMetricsOf { channel_utilization = 5.5f; air_util_tx = 1.5f })
+        val stats = localStatsOf()
 
         val localStats =
             CarScreenDataBuilder.buildLocalStats(ourNode = ourNode, stats = stats, allNodes = listOf(ourNode))
@@ -529,10 +529,10 @@ class CarScreenDataBuilderTest {
         snr: Float = -6f,
         rssi: Int = -110,
         lastHeard: Int = onlineLastHeard(60),
-        deviceMetrics: DeviceMetrics = DeviceMetrics(),
+        deviceMetrics: DeviceMetrics = deviceMetricsOf(),
         position: Position = validPosition(),
     ): Node {
-        val user = User(id = "!$num", long_name = longName, short_name = shortName)
+        val user = userOf { id = "!$num"; long_name = longName; short_name = shortName }
 
         return Node(
             num = num,
@@ -563,9 +563,19 @@ class CarScreenDataBuilderTest {
         isFromMe = false,
     )
 
-    private fun validPosition(): Position = Position(latitude_i = 377749000, longitude_i = -1224194000)
+    private fun validPosition(): Position = positionOf { latitude_i = 377749000; longitude_i = -1224194000 }
 
     private fun onlineLastHeard(offsetSeconds: Int): Int = onlineTimeThreshold() + offsetSeconds
 
     private fun offlineLastHeard(offsetSeconds: Int): Int = onlineTimeThreshold() - offsetSeconds
+
+    private fun deviceMetricsOf(block: DeviceMetrics.Builder.() -> Unit = {}): DeviceMetrics =
+        DeviceMetrics.Builder().apply(block).build()
+
+    private fun positionOf(block: Position.Builder.() -> Unit = {}): Position = Position.Builder().apply(block).build()
+
+    private fun userOf(block: User.Builder.() -> Unit = {}): User = User.Builder().apply(block).build()
+
+    private fun localStatsOf(block: LocalStats.Builder.() -> Unit = {}): LocalStats =
+        LocalStats.Builder().apply(block).build()
 }

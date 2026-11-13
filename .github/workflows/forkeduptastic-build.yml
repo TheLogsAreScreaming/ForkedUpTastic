@@ -1,0 +1,78 @@
+# ForkedUpTastic build. Every upstream workflow is gated on github.repository ==
+# 'meshtastic/Meshtastic-Android', so none of them run here; this is the fork's own CI.
+# It checks the code, runs the car-module and Android Auto manifest tests, and builds the
+# google-flavor debug APK as a downloadable artifact. Releases are published separately to
+# TheLogsAreScreaming/ForkedUpTastic-Releases.
+name: ForkedUpTastic Build
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    if: github.repository == 'TheLogsAreScreaming/ForkedUpTastic'
+    runs-on: ubuntu-26.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          # Full history: spotless ratchetFrom("origin/main") diffs against main.
+          fetch-depth: 0
+
+      - name: Gradle setup
+        uses: ./.github/actions/gradle-setup
+        with:
+          cache_read_only: ${{ github.event_name == 'pull_request' }}
+
+      # Runs the formatter instead of only checking, so a failure hands back the exact fix:
+      # download the spotless-fix artifact and `git apply` it. (No local JDK on the dev Mac.)
+      - name: Format check
+        run: |
+          ./gradlew --stacktrace spotlessApply
+          git diff > spotless-fix.patch
+          if [ -s spotless-fix.patch ]; then
+            echo "::error::Formatting differs. Apply the spotless-fix artifact with 'git apply'."
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Upload formatting fix
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: spotless-fix
+          path: spotless-fix.patch
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Static checks (car module and app)
+        run: ./gradlew --stacktrace :feature:car:detekt :androidApp:detekt
+
+      - name: Car module and Android Auto manifest tests
+        run: >-
+          ./gradlew --stacktrace
+          :feature:car:testGoogleDebugUnitTest
+          :feature:car:testFdroidDebugUnitTest
+          :androidApp:testGoogleDebugUnitTest --tests "org.meshtastic.app.AndroidAutoManifestTest"
+
+      - name: Build google debug APK
+        run: ./gradlew --stacktrace :androidApp:assembleGoogleDebug
+
+      - name: Upload APK
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: forkeduptastic-google-debug-${{ github.sha }}
+          path: androidApp/build/outputs/apk/google/debug/*.apk
+          if-no-files-found: error
+          retention-days: 14

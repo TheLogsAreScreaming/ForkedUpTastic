@@ -27,9 +27,12 @@ import org.meshtastic.app.map.hud.GoogleFusedOrientationSource
 import org.meshtastic.app.map.prefs.di.GoogleMapsKoinModule
 import org.meshtastic.app.theme.GoogleFontsEventFontResolver
 import org.meshtastic.core.ui.theme.EventFontResolver
+import org.meshtastic.feature.car.di.FeatureCarModule
 import org.meshtastic.feature.map.hud.FusedOrientationSource
 
-@Module(includes = [GoogleMapsKoinModule::class, GoogleAiModule::class, AppFunctionsModule::class])
+@Module(
+    includes = [GoogleMapsKoinModule::class, GoogleAiModule::class, AppFunctionsModule::class, FeatureCarModule::class],
+)
 class FlavorModule {
     /** Downloadable Google Fonts for event branding — Google flavor only. */
     @Single fun eventFontResolver(): EventFontResolver = GoogleFontsEventFontResolver()

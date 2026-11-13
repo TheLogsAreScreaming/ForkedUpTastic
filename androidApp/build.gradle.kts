@@ -52,8 +52,20 @@ if (keystorePropertiesFile.exists()) {
 // The values-* directories Crowdin writes are the one list of shipped locales.
 val appResourcesDir = isolated.rootProject.projectDirectory.dir("core/resources/src/commonMain/composeResources")
 
+// ForkedUpTastic: the full templated Android Auto app (CarAppService + HomeScreen) is ON by default.
+// Upstream turned it off because Google Play only accepts templated messaging on Closed/Internal
+// tracks; ForkedUpTastic is released outside Play. Build notification-only Auto messaging with
+// -PenableCarTemplates=false.
+val enableCarTemplates = providers.gradleProperty("enableCarTemplates").map { it.toBoolean() }.getOrElse(true)
+
 configure<ApplicationExtension> {
     namespace = "org.meshtastic.app"
+
+    // When templates are enabled, this res dir overrides feature:car's notification-only
+    // automotive_app_desc.xml with one that also declares <uses name="template" />.
+    if (enableCarTemplates) {
+        sourceSets.getByName("google").res.srcDir("src/googleCarTemplates/res")
+    }
 
     signingConfigs {
         // Shared debug key (checked in; debug keys are not secret) so local builds and CI snapshots
@@ -270,6 +282,7 @@ dependencies {
     // instead of manually polling `dumpsys meminfo`.
     debugImplementation(libs.leakcanary.android)
 
+    googleImplementation(projects.feature.car)
     googleImplementation(libs.location.services)
     googleImplementation(libs.play.services.maps)
     // ARCore for the device model viewer; proprietary, so google only. Same exclusions as feature/node's sceneview.

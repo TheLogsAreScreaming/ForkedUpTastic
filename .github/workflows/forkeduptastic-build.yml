@@ -35,8 +35,29 @@ jobs:
         with:
           cache_read_only: ${{ github.event_name == 'pull_request' }}
 
-      - name: Format and static checks (car module and app)
-        run: ./gradlew --stacktrace spotlessCheck :feature:car:detekt :androidApp:detekt
+      # Runs the formatter instead of only checking, so a failure hands back the exact fix:
+      # download the spotless-fix artifact and `git apply` it. (No local JDK on the dev Mac.)
+      - name: Format check
+        run: |
+          ./gradlew --stacktrace spotlessApply
+          git diff > spotless-fix.patch
+          if [ -s spotless-fix.patch ]; then
+            echo "::error::Formatting differs. Apply the spotless-fix artifact with 'git apply'."
+            git diff --stat
+            exit 1
+          fi
+
+      - name: Upload formatting fix
+        if: failure()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: spotless-fix
+          path: spotless-fix.patch
+          if-no-files-found: ignore
+          retention-days: 7
+
+      - name: Static checks (car module and app)
+        run: ./gradlew --stacktrace :feature:car:detekt :androidApp:detekt
 
       - name: Car module and Android Auto manifest tests
         run: >-

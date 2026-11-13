@@ -61,6 +61,6 @@ class BaselineProfileGenerator {
         }
 
     private companion object {
-        const val DEFAULT_APP_ID = "com.geeksville.mesh"
+        const val DEFAULT_APP_ID = "com.thelogsarescreaming.forkeduptastic"
     }
 }

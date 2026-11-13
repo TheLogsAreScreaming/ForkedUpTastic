@@ -59,6 +59,7 @@ import org.meshtastic.core.resources.app_version
 import org.meshtastic.core.resources.apps
 import org.meshtastic.core.resources.copyright_notice
 import org.meshtastic.core.resources.documentation
+import org.meshtastic.core.resources.fork_modified_notice
 import org.meshtastic.core.resources.github_repository
 import org.meshtastic.core.resources.license
 import org.meshtastic.core.resources.license_notice
@@ -87,7 +88,8 @@ private val CAROUSEL_IMAGE_WIDTH = 110.dp
 private val CAROUSEL_IMAGE_HEIGHT = 130.dp
 
 private const val HARDWARE_URL = "https://meshtastic.org/#hardware"
-private const val GITHUB_REPO_URL = "https://github.com/meshtastic/Meshtastic-Android"
+// ForkedUpTastic: GPL 6(d) Corresponding Source for this modified version.
+private const val GITHUB_REPO_URL = "https://github.com/TheLogsAreScreaming/ForkedUpTastic"
 private const val WEBSITE_URL = "https://meshtastic.org"
 private const val DOCS_URL = "https://meshtastic.org/docs/getting-started"
 private const val LICENSE_URL = "https://www.gnu.org/licenses/gpl-3.0.html"
@@ -239,6 +241,15 @@ private fun CopyrightFooter(modifier: Modifier = Modifier) {
     ) {
         Text(
             text = stringResource(Res.string.copyright_notice),
+            modifier = Modifier.fillMaxWidth(),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+        )
+        // GPL section 5(a) and the Meshtastic trademark policy: say this version is modified, by whom and when,
+        // and that it is not affiliated with or endorsed by the Meshtastic project.
+        Text(
+            text = stringResource(Res.string.fork_modified_notice),
             modifier = Modifier.fillMaxWidth(),
             style = MaterialTheme.typography.bodySmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant,

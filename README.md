@@ -1,3 +1,21 @@
+# ForkedUpTastic
+
+**ForkedUpTastic is a modified version of [Meshtastic-Android](https://github.com/meshtastic/Meshtastic-Android), changed by TheLogsAreScreaming starting November 2026.** It adds features from the Meshtastic® Apple app to Android, starting with Android Auto. It works with Meshtastic® radios. What changed and when is listed in [FORK_CHANGES.md](FORK_CHANGES.md).
+
+- **Download:** [TheLogsAreScreaming/ForkedUpTastic-Releases](https://github.com/TheLogsAreScreaming/ForkedUpTastic-Releases)
+- **Source:** this repository (GPL-3.0-or-later, same as the original; see [LICENSE](LICENSE))
+- **Problems:** open an issue in the releases repo, not in the official Meshtastic repos
+
+ForkedUpTastic has its own app ID (`com.thelogsarescreaming.forkeduptastic`), name and icon, so it installs beside the official app and does not replace it.
+
+### Trademark and affiliation
+
+ForkedUpTastic is not affiliated with or endorsed by the Meshtastic project. Meshtastic® is a registered trademark of Meshtastic LLC. Meshtastic software components are released under various licenses, see GitHub for details. No warranty is provided - use at your own risk.
+
+---
+
+*Below is the original Meshtastic-Android README, kept for reference. Its download links, store badges and support channels are for the official Meshtastic app, not ForkedUpTastic.*
+
 <p align="center">
   <img src=".github/meshtastic_logo.png" alt="Meshtastic Logo" width="200"/>
 </p>

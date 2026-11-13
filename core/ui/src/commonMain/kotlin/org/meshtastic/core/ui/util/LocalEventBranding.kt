@@ -34,7 +34,7 @@ import org.jetbrains.compose.resources.vectorResource
 import org.meshtastic.core.model.EventFirmwareEdition
 import org.meshtastic.core.model.EventFirmwareLink
 import org.meshtastic.core.resources.Res
-import org.meshtastic.core.resources.ic_meshtastic
+import org.meshtastic.core.resources.ic_forkeduptastic
 import org.meshtastic.core.resources.img_event_defcon
 import org.meshtastic.core.resources.img_event_hamvention
 import kotlin.time.Clock
@@ -88,13 +88,14 @@ fun isSafeBrandUrl(url: String?): Boolean = safeBrandUrlOrNull(url) != null
  * Links that are safe to open, carrying the normalized URL — see [safeBrandUrlOrNull]. Unsafe or blank entries are
  * dropped rather than rendered and refused on tap.
  */
-fun EventFirmwareEdition.safeLinks(): List<EventFirmwareLink> =
-    links.mapNotNull { link -> safeBrandUrlOrNull(link.url)?.let { link.copy(url = it) } }
+fun EventFirmwareEdition.safeLinks(): List<EventFirmwareLink> = links.mapNotNull { link ->
+    safeBrandUrlOrNull(link.url)?.let { link.copy(url = it) }
+}
 
 /**
  * Event branding icon: loads the hosted [EventFirmwareEdition.iconUrl] when present *and* safe to fetch, falling back
- * to the bundled per-edition drawable ([eventIconFor]), and finally the Meshtastic logo. The fallback painter also
- * backs Coil's loading/error states so there is never an empty slot.
+ * to the bundled per-edition drawable ([eventIconFor]), and finally the app logo. The fallback painter also backs
+ * Coil's loading/error states so there is never an empty slot.
  */
 @Composable
 fun EventBrandingIcon(
@@ -104,7 +105,7 @@ fun EventBrandingIcon(
 ) {
     val bundled = eventIconFor(edition.edition)
     val fallback =
-        bundled?.let { painterResource(it) } ?: rememberVectorPainter(vectorResource(Res.drawable.ic_meshtastic))
+        bundled?.let { painterResource(it) } ?: rememberVectorPainter(vectorResource(Res.drawable.ic_forkeduptastic))
     val url = safeBrandUrlOrNull(edition.iconUrl)
     if (url.isNullOrBlank()) {
         Image(

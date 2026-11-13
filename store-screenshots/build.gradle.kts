@@ -41,12 +41,12 @@ android {
     productFlavors {
         create("google") {
             dimension = "marketplace"
-            testInstrumentationRunnerArguments["targetAppId"] = "com.geeksville.mesh.google.debug"
+            testInstrumentationRunnerArguments["targetAppId"] = "com.thelogsarescreaming.forkeduptastic.google.debug"
             testInstrumentationRunnerArguments["flavor"] = "google"
         }
         create("fdroid") {
             dimension = "marketplace"
-            testInstrumentationRunnerArguments["targetAppId"] = "com.geeksville.mesh.fdroid.debug"
+            testInstrumentationRunnerArguments["targetAppId"] = "com.thelogsarescreaming.forkeduptastic.fdroid.debug"
             testInstrumentationRunnerArguments["flavor"] = "fdroid"
         }
     }

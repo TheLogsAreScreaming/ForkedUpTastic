@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ ForkedUpTastic icon (original artwork, not the Meshtastic logo).
+  ~ Part of ForkedUpTastic, a modified version of Meshtastic-Android, licensed GPL-3.0-or-later.
+  -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="24dp"
+    android:height="24dp"
+    android:viewportWidth="72"
+    android:viewportHeight="72">
+    <group
+        android:translateX="-24"
+        android:translateY="-15.5">
+    <path
+        android:pathData="M42,74L42,38M42,64C42,52 66,56 66,44"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#FF000000"
+        android:pathData="M35,32a7,7 0 1,0 14,0a7,7 0 1,0 -14,0M35,78a7,7 0 1,0 14,0a7,7 0 1,0 -14,0M59,38a7,7 0 1,0 14,0a7,7 0 1,0 -14,0" />
+    <path
+        android:pathData="M69.1,26.4A12,12 0 0,1 77.6,41.1M70.7,20.6A18,18 0 0,1 83.4,42.7"
+        android:strokeColor="#FF000000"
+        android:strokeWidth="4"
+        android:strokeLineCap="round" />
+    </group>
+</vector>

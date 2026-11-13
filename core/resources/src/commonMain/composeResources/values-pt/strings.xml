@@ -148,10 +148,10 @@
     <string name="bluetooth_permission_blocked_notice_pre31">A permissão de localização está desativada e o Android não voltará a pedir autorização. Ative-a nas definições da aplicação para procurar dispositivos Bluetooth ou, em alternativa, ligue-se por Wi-Fi ou USB.</string>
     <string name="bluetooth_permission_blocked_rationale">O acesso a dispositivos próximos está desativado e o Android não voltará a pedir autorização. Ative-o nas definições da aplicação para procurar dispositivos e estabelecer ligação por Bluetooth.</string>
     <string name="bluetooth_permission_blocked_rationale_pre31">A permissão de localização está desativada e o Android não voltará a pedir autorização. Ative-a nas definições da aplicação para procurar dispositivos e estabelecer ligação por Bluetooth.</string>
-    <string name="bluetooth_permission_denied_notice">Sem acesso a dispositivos próximos, o Meshtastic não consegue encontrar o seu rádio nem estabelecer ligação por Bluetooth. Pode continuar a ligar-se por Wi-Fi ou USB.</string>
-    <string name="bluetooth_permission_denied_notice_pre31">Sem permissão de localização, o Android bloqueia a pesquisa de dispositivos Bluetooth, pelo que o Meshtastic não consegue encontrar o seu rádio. Pode continuar a ligar-se por Wi-Fi ou USB.</string>
-    <string name="bluetooth_permission_rationale">O Meshtastic precisa de acesso a dispositivos próximos para encontrar o seu rádio e estabelecer ligação. Este acesso é utilizado apenas para comunicar com os seus dispositivos, nunca para determinar a sua localização. Sem ele, o Bluetooth fica indisponível — o Wi-Fi e o USB continuam a funcionar.</string>
-    <string name="bluetooth_permission_rationale_pre31">O Meshtastic precisa de permissão de localização porque esta versão do Android considera a pesquisa de dispositivos Bluetooth uma funcionalidade de localização. A sua localização nunca é consultada nem partilhada para este fim. Sem esta permissão, o Bluetooth fica indisponível — o Wi-Fi e o USB continuam a funcionar.</string>
+    <string name="bluetooth_permission_denied_notice">Sem acesso a dispositivos próximos, o ForkedUpTastic não consegue encontrar o seu rádio nem estabelecer ligação por Bluetooth. Pode continuar a ligar-se por Wi-Fi ou USB.</string>
+    <string name="bluetooth_permission_denied_notice_pre31">Sem permissão de localização, o Android bloqueia a pesquisa de dispositivos Bluetooth, pelo que o ForkedUpTastic não consegue encontrar o seu rádio. Pode continuar a ligar-se por Wi-Fi ou USB.</string>
+    <string name="bluetooth_permission_rationale">O ForkedUpTastic precisa de acesso a dispositivos próximos para encontrar o seu rádio e estabelecer ligação. Este acesso é utilizado apenas para comunicar com os seus dispositivos, nunca para determinar a sua localização. Sem ele, o Bluetooth fica indisponível — o Wi-Fi e o USB continuam a funcionar.</string>
+    <string name="bluetooth_permission_rationale_pre31">O ForkedUpTastic precisa de permissão de localização porque esta versão do Android considera a pesquisa de dispositivos Bluetooth uma funcionalidade de localização. A sua localização nunca é consultada nem partilhada para este fim. Sem esta permissão, o Bluetooth fica indisponível — o Wi-Fi e o USB continuam a funcionar.</string>
     <string name="bluetooth_scan_location_services_disabled">Os serviços de localização estão desativados. Ative-os para procurar dispositivos próximos.</string>
     <string name="bluetooth_scan_missing_permission">A pesquisa de dispositivos Bluetooth requer autorização. Conceda a permissão de acesso a dispositivos próximos (ou de localização) para encontrar dispositivos.</string>
     <string name="bluetooth_scan_start_failed">Não foi possível iniciar a pesquisa de dispositivos Bluetooth. Tente novamente ou desative e volte a ativar o Bluetooth se o problema persistir.</string>
@@ -162,7 +162,7 @@
     <string name="bonding_failed_permissions">O emparelhamento falhou. Conceda a permissão de acesso a dispositivos próximos e tente novamente.</string>
     <string name="bonding_failed_retry">O emparelhamento não foi concluído. Tente emparelhar novamente.</string>
     <string name="boot_reconnect_blocked_message">A permissão de acesso a dispositivos próximos está desativada, pelo que não é possível estabelecer ligação ao seu rádio por Bluetooth. Toque para a reativar.</string>
-    <string name="boot_reconnect_blocked_title">O Meshtastic não consegue restabelecer a ligação</string>
+    <string name="boot_reconnect_blocked_title">O ForkedUpTastic não consegue restabelecer a ligação</string>
     <string name="bottom_nav_settings">Definições</string>
     <plurals name="cache_limit_eviction_warning">
         <item quantity="one">Reduzir este valor irá eliminar permanentemente o histórico guardado de %1$d dispositivo.</item>
@@ -346,9 +346,9 @@
     <!-- DESKTOP -->
     <string name="desktop_notification_title">Nome do nó de alternativo</string>
     <string name="desktop_tray_quit">Sair</string>
-    <string name="desktop_tray_show">Mostrar Meshtastic</string>
-    <string name="desktop_tray_tooltip">Meshtastic Desktop</string>
-    <string name="desktop_update_available_message">O Meshtastic Desktop %1$s está disponível para transferência.</string>
+    <string name="desktop_tray_show">Mostrar ForkedUpTastic</string>
+    <string name="desktop_tray_tooltip">ForkedUpTastic Desktop</string>
+    <string name="desktop_update_available_message">O ForkedUpTastic Desktop %1$s está disponível para transferência.</string>
     <string name="desktop_update_available_title">Atualização da aplicação disponível</string>
     <string name="desktop_update_download">Transferir atualização %1$s</string>
     <string name="details">Detalhes</string>

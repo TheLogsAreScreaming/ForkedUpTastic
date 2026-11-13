@@ -88,13 +88,14 @@ fun isSafeBrandUrl(url: String?): Boolean = safeBrandUrlOrNull(url) != null
  * Links that are safe to open, carrying the normalized URL — see [safeBrandUrlOrNull]. Unsafe or blank entries are
  * dropped rather than rendered and refused on tap.
  */
-fun EventFirmwareEdition.safeLinks(): List<EventFirmwareLink> =
-    links.mapNotNull { link -> safeBrandUrlOrNull(link.url)?.let { link.copy(url = it) } }
+fun EventFirmwareEdition.safeLinks(): List<EventFirmwareLink> = links.mapNotNull { link ->
+    safeBrandUrlOrNull(link.url)?.let { link.copy(url = it) }
+}
 
 /**
  * Event branding icon: loads the hosted [EventFirmwareEdition.iconUrl] when present *and* safe to fetch, falling back
- * to the bundled per-edition drawable ([eventIconFor]), and finally the app logo. The fallback painter also
- * backs Coil's loading/error states so there is never an empty slot.
+ * to the bundled per-edition drawable ([eventIconFor]), and finally the app logo. The fallback painter also backs
+ * Coil's loading/error states so there is never an empty slot.
  */
 @Composable
 fun EventBrandingIcon(

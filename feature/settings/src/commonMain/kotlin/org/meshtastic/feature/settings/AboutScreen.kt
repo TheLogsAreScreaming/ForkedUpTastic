@@ -88,6 +88,7 @@ private val CAROUSEL_IMAGE_WIDTH = 110.dp
 private val CAROUSEL_IMAGE_HEIGHT = 130.dp
 
 private const val HARDWARE_URL = "https://meshtastic.org/#hardware"
+
 // ForkedUpTastic: GPL 6(d) Corresponding Source for this modified version.
 private const val GITHUB_REPO_URL = "https://github.com/TheLogsAreScreaming/ForkedUpTastic"
 private const val WEBSITE_URL = "https://meshtastic.org"

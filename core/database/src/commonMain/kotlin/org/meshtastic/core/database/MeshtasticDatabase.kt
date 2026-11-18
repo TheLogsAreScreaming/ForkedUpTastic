@@ -26,7 +26,6 @@ import androidx.room3.migration.AutoMigrationSpec
 import androidx.room3.migration.Migration
 import androidx.sqlite.SQLiteConnection
 import androidx.sqlite.execSQL
-import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.meshtastic.core.common.util.ioDispatcher
 import org.meshtastic.core.database.dao.BootloaderOtaQuirksDao
 import org.meshtastic.core.database.dao.ChannelSetDao
@@ -42,6 +41,7 @@ import org.meshtastic.core.database.dao.MqttRootsDao
 import org.meshtastic.core.database.dao.NodeInfoDao
 import org.meshtastic.core.database.dao.PacketDao
 import org.meshtastic.core.database.dao.QuickChatActionDao
+import org.meshtastic.core.database.dao.SignalSampleDao
 import org.meshtastic.core.database.dao.TracerouteNodePositionDao
 import org.meshtastic.core.database.entity.BootloaderOtaQuirksCacheEntity
 import org.meshtastic.core.database.entity.ChannelSetEntity
@@ -64,6 +64,8 @@ import org.meshtastic.core.database.entity.Packet
 import org.meshtastic.core.database.entity.PacketFts
 import org.meshtastic.core.database.entity.QuickChatAction
 import org.meshtastic.core.database.entity.ReactionEntity
+import org.meshtastic.core.database.entity.SignalSampleEntity
+import org.meshtastic.core.database.entity.SignalSurveySessionEntity
 import org.meshtastic.core.database.entity.TracerouteNodePositionEntity
 
 @Database(
@@ -91,6 +93,8 @@ import org.meshtastic.core.database.entity.TracerouteNodePositionEntity
         BootloaderOtaQuirksCacheEntity::class,
         MaintenanceUf2CacheEntity::class,
         MqttRootsCacheEntity::class,
+        SignalSurveySessionEntity::class,
+        SignalSampleEntity::class,
     ],
     autoMigrations =
     [
@@ -158,8 +162,10 @@ import org.meshtastic.core.database.entity.TracerouteNodePositionEntity
         AutoMigration(from = 64, to = 65),
         AutoMigration(from = 65, to = 66),
         AutoMigration(from = 66, to = 67),
+        // 67 -> 68 is the manual MIGRATION_67_68 (log indexes added in place), applied via configureCommon().
+        AutoMigration(from = 68, to = 69),
     ],
-    version = 67,
+    version = 69,
     exportSchema = true,
 )
 @androidx.room3.ConstructedBy(MeshtasticDatabaseConstructor::class)
@@ -196,6 +202,8 @@ abstract class MeshtasticDatabase : RoomDatabase() {
     abstract fun maintenanceUf2Dao(): MaintenanceUf2Dao
 
     abstract fun mqttRootsDao(): MqttRootsDao
+
+    abstract fun signalSampleDao(): SignalSampleDao
 
     companion object {
         /**
@@ -268,30 +276,35 @@ abstract class MeshtasticDatabase : RoomDatabase() {
             }
 
         /**
+         * Indexes `log` for its two observed query shapes: one node's logs on one port newest first, and the newest log
+         * of a type. Created in place for the reason [MIGRATION_63_64] gives: the auto-migration would copy every row.
+         */
+        internal val MIGRATION_67_68: Migration =
+            object : Migration(67, 68) {
+                override suspend fun migrate(connection: SQLiteConnection) {
+                    connection.execSQL(
+                        "CREATE INDEX IF NOT EXISTS `index_log_from_num_port_num_received_date` " +
+                            "ON `log` (`from_num`, `port_num`, `received_date`)",
+                    )
+                    connection.execSQL(
+                        "CREATE INDEX IF NOT EXISTS `index_log_type_received_date` ON `log` (`type`, `received_date`)",
+                    )
+                }
+            }
+
+        /**
          * Configures a [RoomDatabase.Builder] with standard settings for this project.
          *
-         * All platforms force [setSingleConnectionPool]. Without it, Room defaults to a 4-reader pool for named
-         * databases, and under coroutine cancellation churn (e.g. DB switches via `flatMapLatest`) the reader-pool
-         * permit semaphore can wedge: all reader connections report `Free` but `permits=0`, so every read acquisition
-         * waits indefinitely (Room logs "Timed out attempting to acquire a reader connection" and retries; nothing is
-         * thrown). Android hit this first; desktop (Flathub, 2026-07-10) reproduced the identical wedge in field logs,
-         * so JVM/iOS were moved off the multi-reader pool too. Single-connection eliminates the separate reader permit
-         * pool entirely.
-         *
-         * For in-memory databases (tests) this is a no-op for pooling — Room already serves `name == null` databases
-         * from a single connection — it just serializes the query dispatcher.
+         * A file database keeps Room's default pool: one writer and several readers in WAL, so the query every observed
+         * Flow re-runs after a write reads beside the next write instead of ahead of it on one connection. A reader
+         * pool that stops serving surfaces as a `DbFlowStalledException`, which [DatabaseManager] recovers by replacing
+         * the pool. Room serves an in-memory database (tests) from a single connection whatever is set here.
          */
-        @OptIn(ExperimentalCoroutinesApi::class)
         fun <T : RoomDatabase> RoomDatabase.Builder<T>.configureCommon(): RoomDatabase.Builder<T> =
             this.fallbackToDestructiveMigration(dropAllTables = false)
-                .addMigrations(MIGRATION_52_53, MIGRATION_63_64)
-                .setSingleConnectionPool()
+                .addMigrations(MIGRATION_52_53, MIGRATION_63_64, MIGRATION_67_68)
                 .setConnectionPoolTimeout(ROOM_POOL_ACQUIRE_TIMEOUT)
-                .setQueryCoroutineContext(
-                    // limitedParallelism(1) has the same throughput ceiling as the single-connection pool
-                    // (already serialized), so this only blocks the cancellation pileup — not real I/O concurrency.
-                    ioDispatcher.limitedParallelism(1),
-                )
+                .setQueryCoroutineContext(ioDispatcher)
     }
 }
 

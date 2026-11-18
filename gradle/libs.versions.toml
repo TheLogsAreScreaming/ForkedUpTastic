@@ -98,7 +98,7 @@ datadog-gradle = "1.32.0"
 dd-sdk-android = "3.16.0"
 detekt = "2.0.0-alpha.6"
 dokka = "2.3.0"
-devtools-ksp = "2.3.13"
+devtools-ksp = "2.3.14"
 firebase-crashlytics-gradle = "3.0.8"
 google-services-gradle = "4.6.0"
 markdown = "0.7.18"
@@ -107,16 +107,16 @@ okio = "3.18.2"
 bouncycastle = "1.87"
 uri-kmp = "0.0.21"
 spotless = "8.11.0"
-sceneview = "4.69.5"
+sceneview = "4.69.6"
 vico = "3.4.0-next.1"
-kable = "0.45.0"
+kable = "0.46.0"
 mqttastic = "0.9.1"
 jmdns = "3.6.5"
 # Desktop-only: speaks StatusNotifierItem over D-Bus so the Linux tray icon is clickable (MIT).
 dbus-java = "5.2.2"
 qrcode-kotlin = "4.5.0"
 takpacket-sdk = "0.10.0"
-meshtastic-protobufs = "2.8.2.13-g0adaccd-SNAPSHOT"
+meshtastic-protobufs = "2.8.3"
 
 # Gradle Plugins
 ccud = "2.8.0"
@@ -294,7 +294,7 @@ junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher
 kotest-assertions = { module = "io.kotest:kotest-assertions-core", version.ref = "kotest" }
 kotest-property = { module = "io.kotest:kotest-property", version.ref = "kotest" }
 konsist = { module = "com.lemonappdev:konsist", version.ref = "konsist" }
-robolectric = { module = "org.robolectric:robolectric", version = "4.18" }
+robolectric = { module = "org.robolectric:robolectric", version = "4.18.1" }
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 # Other

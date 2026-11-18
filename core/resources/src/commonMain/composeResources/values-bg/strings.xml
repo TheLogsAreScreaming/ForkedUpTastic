@@ -107,7 +107,6 @@
     <string name="bandwidth_unsupported_summary">Тази честотна лента не се поддържа от свързаното радио в избрания регион. Изберете поддържана стойност, преди да запазите.</string>
     <string name="baro_pressure">Баро</string>
     <string name="battery">Батерия</string>
-    <string name="battery_ina_2xx_i2c_address">I2C адрес на батерията INA_2XX</string>
     <string name="ble_devices">Bluetooth устройства</string>
     <string name="ble_scan_needs_location_services">За тази версия на Android сканирането чрез Bluetooth също изисква включени услуги за местоположение. Вашето местоположение не се използва.</string>
     <!-- BLUETOOTH -->
@@ -138,6 +137,7 @@
     <string name="cancel">Отказ</string>
     <string name="cant_change_no_radio">Каналът не може да бъде сменен, тъй като радиото все още не е свързано. Моля, опитайте отново.</string>
     <string name="cant_shutdown">Изключването не се поддържа на това устройство</string>
+    <!-- CARDINAL -->
     <string name="ch_util_definition">Използване на текущия канал, включително добре формулиан TX, RX и деформиран RX (така наречен шум).</string>
     <!-- CHANNEL -->
     <string name="channel">К</string>
@@ -178,7 +178,9 @@
     <string name="client_notification">Известие за клиента</string>
     <string name="close">Затвори</string>
     <string name="close_selection">Затваряне на избраните</string>
+    <!-- CO2 -->
     <string name="co2">CO₂</string>
+    <string name="co2_level_good">Добър</string>
     <string name="collapse_chart">Свиване на диаграмата</string>
     <string name="communicate_off_the_grid">Комуникирайте извън мрежата с вашите приятели и общността без клетъчна услуга.</string>
     <!-- COMPASS -->
@@ -788,7 +790,6 @@
     <string name="metric_channel_label">%1$s %2$d</string>
     <string name="micrograms_per_cubic_meter">µg/m³</string>
     <string name="min">Мин</string>
-    <string name="minimum_wake_time_seconds">Минимално време за събуждане</string>
     <!-- MIRROR -->
     <string name="mirror_back">Назад</string>
     <string name="mirror_key_ok">Добре</string>
@@ -836,6 +837,7 @@
     <string name="name">Име</string>
     <string name="name_cannot_be_empty">Името не може да бъде празно.</string>
     <string name="need_hardware">Нуждаете се от хардуер?</string>
+    <!-- NEIGHBOR -->
     <string name="network">Мрежа</string>
     <string name="new_channel_rcvd">Получен е URL адрес на нов канал</string>
     <string name="new_messages_below">Нови съобщения по-долу</string>
@@ -1010,6 +1012,8 @@
     <string name="preferences_system_default">По подразбиране на системата</string>
     <string name="press_and_drag">Натиснете и плъзнете, за да пренаредите</string>
     <string name="pressure">Налягане</string>
+    <string name="pressure_high">Високо</string>
+    <string name="pressure_low">Ниско</string>
     <!-- PREVIEW -->
     <string name="preview_custom_composable_line_two">С множество линии и стилове</string>
     <string name="preview_dot">Точка</string>
@@ -1089,6 +1093,7 @@
     <string name="reset">Нулиране</string>
     <string name="reset_to_defaults">Възстановяване на настройките по подразбиране</string>
     <string name="retry">Опитайте отново</string>
+    <!-- RINGTONE -->
     <string name="ringtone">Тон на звънене</string>
     <string name="ringtone_file_empty">Файлът е празен</string>
     <string name="ringtone_import_error">Грешка при импортиране: %1$s</string>
@@ -1179,6 +1184,7 @@
     <string name="shutdown">Изключване</string>
     <string name="shutdown_node_name">Възел: %1$s</string>
     <string name="shutdown_warning">⚠️ Това ще ИЗКЛЮЧИ възела. Ще е необходимо физическо взаимодействие, за да се включи отново.</string>
+    <!-- SIGNAL -->
     <string name="signal">Сигнал</string>
     <string name="signal_quality">Качество на сигнала</string>
     <!-- SITE -->
@@ -1205,7 +1211,6 @@
     <string name="speed_mph">%1$d mph</string>
     <string name="stay_connected_anywhere">Останете свързани навсякъде</string>
     <string name="success">Успех</string>
-    <string name="super_deep_sleep_duration_seconds">Продължителност на супер дълбок сън</string>
     <string name="supported">Поддържан</string>
     <string name="supported_by_community">Поддържа се от общността Meshtastic</string>
     <string name="swipe_action_delete">Изтриване</string>
@@ -1330,6 +1335,7 @@
     <string name="what_is_meshtastic_description">Мрежа с отворен код, работеща независимо от централизирана инфраструктура (off-grid), децентрализирана и изградена на принципа на мрежовата топология (mesh), която функционира чрез достъпни радиоустройства с ниска консумация на енергия.</string>
     <!-- WIDGET -->
     <string name="widget_packets_bad">Лош</string>
+    <string name="widget_telemetry_title">Телеметрия</string>
     <!-- WIFI -->
     <string name="wifi_config">Опции за Wi-Fi</string>
     <string name="wifi_devices">Осигуряване на Wi-Fi за mPWRD-OS</string>

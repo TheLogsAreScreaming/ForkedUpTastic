@@ -37,6 +37,7 @@
     <string name="a11y_temperature">Temperature</string>
     <string name="about">About</string>
     <string name="accept">Accept</string>
+    <string name="ack_relayed_by">Ack relayed by %1$s</string>
     <string name="acknowledgements">Acknowledgements</string>
     <!-- ACTION -->
     <string name="action_copy_message">Copy message</string>
@@ -149,7 +150,6 @@
     <string name="bandwidth_unsupported_summary">This bandwidth is not supported by the connected radio in the selected region. Choose a supported value before saving.</string>
     <string name="baro_pressure">Baro</string>
     <string name="battery">Battery</string>
-    <string name="battery_ina_2xx_i2c_address">Battery INA_2XX I2C address</string>
     <string name="biochemical_oxygen_demand">BOD</string>
     <string name="ble_devices">Bluetooth Devices</string>
     <string name="ble_scan_needs_location_services">Bluetooth scanning also needs location services switched on for this version of Android. Your position is not used.</string>
@@ -202,6 +202,15 @@
     <string name="canned_message_enabled">Canned message enabled</string>
     <string name="cant_change_no_radio">Couldn't change channel, because radio is not yet connected. Please try again.</string>
     <string name="cant_shutdown">Shutdown not supported on this device</string>
+    <!-- CARDINAL -->
+    <string name="cardinal_e">E</string>
+    <string name="cardinal_n">N</string>
+    <string name="cardinal_ne">NE</string>
+    <string name="cardinal_nw">NW</string>
+    <string name="cardinal_s">S</string>
+    <string name="cardinal_se">SE</string>
+    <string name="cardinal_sw">SW</string>
+    <string name="cardinal_w">W</string>
     <string name="ch_util_definition">Utilization for the current channel, including well formed TX, RX and malformed RX (aka noise).</string>
     <!-- CHANNEL -->
     <string name="channel">Ch</string>
@@ -277,8 +286,14 @@
     <string name="client_notification">Client Notification</string>
     <string name="close">Close</string>
     <string name="close_selection">Close selection</string>
+    <!-- CO2 -->
     <string name="co2">CO₂</string>
     <string name="co2_humidity">CO₂ Hum</string>
+    <string name="co2_level_evacuate">Evacuate</string>
+    <string name="co2_level_good">Good</string>
+    <string name="co2_level_poor">Poor</string>
+    <string name="co2_level_stuffy">Stuffy</string>
+    <string name="co2_level_unsafe">Unsafe</string>
     <string name="co2_temperature">CO₂ Temp</string>
     <string name="collapse_chart">Collapse chart</string>
     <string name="collapsed">Collapsed</string>
@@ -942,6 +957,7 @@
     <string name="indoor_air_quality_iaq">Indoor Air Quality (IAQ)</string>
     <string name="info">Information</string>
     <string name="input_channel_url">Input Shared Channels URL</string>
+    <string name="input_connect_code_url">Input Connect Code URL</string>
     <string name="input_shared_contact_url">Input Shared Contact URL</string>
     <string name="insert">Insert</string>
     <string name="insert_link_message">Enter the URL for the selected text</string>
@@ -956,7 +972,6 @@
     <string name="ip">IP</string>
     <string name="ip_address">IP Address:</string>
     <string name="ip_port">Port:</string>
-    <string name="json_output_enabled">JSON output enabled</string>
     <string name="jump_to_latest_from">%1$s</string>
     <string name="jump_to_latest_from_and_more">%1$s +%2$d</string>
     <!-- KEY -->
@@ -1367,7 +1382,6 @@
     <string name="metric_channel_label">%1$s %2$d</string>
     <string name="micrograms_per_cubic_meter">µg/m³</string>
     <string name="min">Min</string>
-    <string name="minimum_wake_time_seconds">Minimum wake time</string>
     <!-- MIRROR -->
     <string name="mirror_active">Mirroring</string>
     <string name="mirror_back">Back</string>
@@ -1484,8 +1498,14 @@
     <string name="nearby_devices_permission">Nearby devices permission</string>
     <string name="need_hardware">Need Hardware?</string>
     <string name="need_hardware_description">Meshtastic requires a compatible device. Our backers and partners offer ready-to-use hardware. Here are some of the most popular options.</string>
+    <!-- NEIGHBOR -->
+    <string name="neighbor_count">Neighbors</string>
+    <string name="neighbor_count_description">How many nodes this node heard directly, as it reported them.</string>
     <string name="neighbor_info">Neighbor Info</string>
     <string name="neighbor_info_config">Neighbor Info Config</string>
+    <string name="neighbor_info_received">Received</string>
+    <string name="neighbor_mean_snr">Mean neighbor SNR</string>
+    <string name="neighbor_mean_snr_description">The average SNR at which this node heard its reported neighbors.</string>
     <string name="network">Network</string>
     <string name="network_layer_url_hint" translatable="false">https://example.com/map.kml or .geojson</string>
     <string name="new_channel_rcvd">New Channel URL received</string>
@@ -1636,7 +1656,6 @@
     <string name="orient_north">Orient north</string>
     <string name="orp">ORP</string>
     <string name="overflow_menu">Overflow menu</string>
-    <string name="override_console_serial_port">Override console serial port</string>
     <!-- PACKET -->
     <string name="packet_authenticity">Packet authenticity</string>
     <string name="packet_authenticity_balanced">Balanced — Prefer authenticated</string>
@@ -1735,11 +1754,14 @@
     <string name="powered">Powered</string>
     <string name="ppm">ppm</string>
     <string name="precise_location">Precise location</string>
+    <string name="precise_location_insecure_channel">Not available on a channel that is not securely encrypted</string>
     <string name="preferences_language">Language</string>
     <string name="preferences_system_default">System default</string>
     <string name="preserve_favorites">Preserve Favorites?</string>
     <string name="press_and_drag">Press and drag to reorder</string>
     <string name="pressure">Pressure</string>
+    <string name="pressure_high">High</string>
+    <string name="pressure_low">Low</string>
     <!-- PREVIEW -->
     <string name="preview_custom_composable_line_one">This is a custom composable</string>
     <string name="preview_custom_composable_line_two">With multiple lines and styles</string>
@@ -1809,6 +1831,7 @@
     <string name="refresh_metadata">Refresh metadata</string>
     <string name="regenerate_keys_confirmation">Are you sure you want to regenerate your Private Key?\n\nNodes that may have previously exchanged keys with this node will need to Remove that node and re-exchange keys in order to resume secure communication.</string>
     <string name="regenerate_private_key">Regenerate Private Key</string>
+    <string name="relayed_by">Relayed by %1$s</string>
     <plurals name="relays">
         <item quantity="one">Heard %1$d relay</item>
         <item quantity="other">Heard %1$d relays</item>
@@ -1890,6 +1913,7 @@
     <string name="request_telemetry">Request Telemetry</string>
     <string name="request_user_info">Request User Info</string>
     <string name="requesting_from">Requesting %1$s from %2$s</string>
+    <string name="requesting_neighbor_info_from">Requesting neighbor info from %1$s. It only answers if its Neighbor Info module is enabled.</string>
     <string name="resend">Resend</string>
     <string name="reset">Reset</string>
     <string name="reset_to_defaults">Reset to defaults</string>
@@ -1898,10 +1922,14 @@
     <string name="restore_keys_confirmation">Restores the backed-up public and private keys to this node.</string>
     <string name="restore_keys_pick_backup">Pick the backup to restore to this node. A factory reset or a new key changes the node's ID, so older backups stay under the old ID. Only restore a backup taken from this same radio: another radio's key gives both radios the same identity.</string>
     <string name="retry">Retry</string>
+    <!-- RINGTONE -->
     <string name="ringtone">Ringtone</string>
     <string name="ringtone_file_empty">File is empty</string>
     <string name="ringtone_import_error">Error importing: %1$s</string>
     <string name="ringtone_imported">Imported ringtone</string>
+    <string name="ringtone_play_on_node">Play on node</string>
+    <string name="ringtone_play_on_node_summary">Plays the saved ringtone on the node once. Needs a buzzer.</string>
+    <string name="ringtone_play_on_node_unsaved">Save the ringtone first to play it on the node.</string>
     <!-- ROLE -->
     <string name="role">Device Role</string>
     <string name="role_client">Client</string>
@@ -1952,6 +1980,8 @@
     <string name="scan_channels_nfc">Scan Shared Channels NFC</string>
     <string name="scan_channels_qr">Scan Shared Channels QR Code</string>
     <string name="scan_connect_code">Scan a connect code</string>
+    <string name="scan_connect_code_nfc">Scan Connect Code NFC</string>
+    <string name="scan_connect_code_qr">Scan Connect Code QR Code</string>
     <string name="scan_network_devices">Scan for network devices</string>
     <string name="scan_nfc">Scan NFC</string>
     <string name="scan_nfc_text">Bring your device close to the NFC tag to scan.</string>
@@ -2046,8 +2076,33 @@
     <string name="shutdown">Shutdown</string>
     <string name="shutdown_node_name">Node: %1$s</string>
     <string name="shutdown_warning">⚠️ This will SHUTDOWN the node. Physical interaction will be required to turn it back on.</string>
+    <!-- SIGNAL -->
     <string name="signal">Signal</string>
     <string name="signal_quality">Signal Quality</string>
+    <string name="signal_survey_delete_confirm">Delete this session and its readings?</string>
+    <string name="signal_survey_description">Listens only: logs the signal of each packet your radio hears, with your phone's location, and draws it on the map. Nothing is sent, and the log stays on this device.</string>
+    <string name="signal_survey_export">Export CSV</string>
+    <string name="signal_survey_heard_directly">Heard directly here</string>
+    <string name="signal_survey_heatmap">Show as heatmap</string>
+    <string name="signal_survey_hud_recording">Recording survey · %1$s</string>
+    <string name="signal_survey_last_reading">Last reading %1$s</string>
+    <string name="signal_survey_location_off">Turn on location to log readings</string>
+    <string name="signal_survey_location_permission">Allow location access to log readings</string>
+    <string name="signal_survey_no_fix">Waiting for a location fix</string>
+    <plurals name="signal_survey_readings">
+        <item quantity="one">%1$d reading</item>
+        <item quantity="other">%1$d readings</item>
+    </plurals>
+    <string name="signal_survey_record">Record</string>
+    <plurals name="signal_survey_senders">
+        <item quantity="one">Heard %1$d node</item>
+        <item quantity="other">Heard %1$d nodes</item>
+    </plurals>
+    <string name="signal_survey_title">Signal survey</string>
+    <plurals name="signal_survey_unplaced">
+        <item quantity="one">%1$d more heard directly shares no position</item>
+        <item quantity="other">%1$d more heard directly share no position</item>
+    </plurals>
     <!-- SITE -->
     <string name="site_planner">Site Planner</string>
     <string name="site_planner_antenna_gain_dbi">Antenna gain (dBi)</string>
@@ -2096,7 +2151,6 @@
     <string name="store_forward">Store &amp; Forward</string>
     <string name="store_forward_config">Store &amp; Forward Config</string>
     <string name="success">Success</string>
-    <string name="super_deep_sleep_duration_seconds">Super deep sleep duration</string>
     <string name="supported">Supported</string>
     <string name="supported_by_community">Supported by Meshtastic Community</string>
     <string name="supported_by_maker">Independent maker hardware</string>
@@ -2310,6 +2364,20 @@
     <string name="widget_packets_sent">Sent</string>
     <string name="widget_relays">Relayed</string>
     <string name="widget_relays_canceled">Relays canceled</string>
+    <string name="widget_telemetry_change_node">Change node</string>
+    <string name="widget_telemetry_choose">Choose a node. Only nodes that have sent environment, air quality or power readings are listed.</string>
+    <string name="widget_telemetry_dew">Dew %1$s</string>
+    <string name="widget_telemetry_gust">Gust %1$s</string>
+    <string name="widget_telemetry_next_page">Next readings, page %1$d of %2$d</string>
+    <string name="widget_telemetry_no_nodes_hint">Nodes appear here once they send environment, air quality or power readings.</string>
+    <string name="widget_telemetry_no_nodes_title">No telemetry yet</string>
+    <string name="widget_telemetry_no_readings">No readings to show</string>
+    <string name="widget_telemetry_not_found">No node chosen. Tap to choose one.</string>
+    <string name="widget_telemetry_page">%1$d/%2$d</string>
+    <string name="widget_telemetry_readings_hint">The widget shows every reading the node reports. Turn off any you don't want.</string>
+    <string name="widget_telemetry_stale">Over 2 hours old</string>
+    <string name="widget_telemetry_title">Telemetry</string>
+    <string name="widget_telemetry_updated">Updated %1$s</string>
     <!-- WIFI -->
     <string name="wifi_config">Wi-Fi Options</string>
     <string name="wifi_devices">Wi-Fi Provisioning for mPWRD-OS</string>
